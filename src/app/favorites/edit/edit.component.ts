@@ -50,7 +50,7 @@ export class EditComponent implements OnInit {
   }
 
   save() {
-    this.cloudService.updateData(this.formEdit.value.id, this.formEdit.value, 'favorites').then(
+    this.cloudService.updateData(this.formEdit.value.id, this.formEdit.value, 'favorites').subscribe(
       res => this.activeModal.close(true)
     )
   }

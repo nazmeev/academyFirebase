@@ -54,21 +54,29 @@ export class CloudService {
     //     return this.firestore.collection(table, ref => ref.where(field, '==', value)).valueChanges()
     // }
 
-    updateData<T>(dataID: string, data: T, table: string): Promise<T> {
-        return new Promise<any>((resolve, reject) => {
-            this.firestore
+    updateData<T>(dataID: string, data: T, table: string) {
+        
+            return of(this.firestore
                 .doc(table + '/' + dataID)
-                .update(data)
-                .then(function (doc) {
-                    console.log("Document written with ID: ", doc)
-                    resolve({ doc })
-                })
-                .catch(function (error) {
-                    reject(error)
-                    console.error("Error adding document: ", error)
-                })
-        })
+                .update(data))
+                
+        
     }
+    // updateData<T>(dataID: string, data: T, table: string): Promise<T> {
+    //     return new Promise<any>((resolve, reject) => {
+    //         this.firestore
+    //             .doc(table + '/' + dataID)
+    //             .update(data)
+    //             .then(function (doc) {
+    //                 console.log("Document written with ID: ", doc)
+    //                 resolve({ doc })
+    //             })
+    //             .catch(function (error) {
+    //                 reject(error)
+    //                 console.error("Error adding document: ", error)
+    //             })
+    //     })
+    // }
 
     deleteData(dataID: string, table: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
