@@ -3,6 +3,7 @@ import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CloudService } from 'src/app/shared/services/cloud.service';
 import { Favorite } from '../../shared/interfaces/favorite.interface';
 import { EditService } from '../../shared/services/edit.service';
 
@@ -18,7 +19,8 @@ export class EditComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
-    private editService: EditService
+    private editService: EditService,
+    private cloudService: CloudService,
   ) {
     this.formEdit = this.fb.group({
       favTitle: ['', [Validators.required, Validators.maxLength(this.editService.titleMaxlength), Validators.minLength(this.editService.titleMinlength)]],
@@ -48,7 +50,9 @@ export class EditComponent implements OnInit {
   }
 
   save() {
-    this.activeModal.close(this.formEdit)
+    this.cloudService.updateData(this.formEdit.value.id, this.formEdit.value, 'favorites').then(
+      res => this.activeModal.close(true)
+    )
   }
 
   onValueChange() {
@@ -63,7 +67,7 @@ export class EditComponent implements OnInit {
         this.formErrors[item] += `${messages[key]}`
       }
 
-      (control.valid)? this.formErrorsClasses[item] = 'is-valid': this.formErrorsClasses[item] = 'is-invalid'
+      (control.valid) ? this.formErrorsClasses[item] = 'is-valid' : this.formErrorsClasses[item] = 'is-invalid'
     }
   }
 

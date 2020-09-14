@@ -64,13 +64,15 @@ export class FavoritesComponent implements OnInit {
         const modalRef = this.modalService.open(EditComponent)
         modalRef.componentInstance.item = item
         modalRef.result.then((result) => {
-          console.log('openEdit result', result)
-          if (!result) this.messagesService.sendMessage('Закрыто', 'alert-warning')
-          this.cloudService.updateData(result.value.id, result.value, 'favorites').then(
-            res => {
-              this.messagesService.sendMessage('Обновлено', 'alert-success')
-            }
-          )
+          // debugger;
+          console.log('openEdit result', result);
+          modalRef.close(true);
+          (result)? this.messagesService.sendMessage('Обновлено', 'alert-success'): this.messagesService.sendMessage('Закрыто', 'alert-warning')
+          // this.cloudService.updateData(result.value.id, result.value, 'favorites').then(
+          //   res => {
+          //     this.messagesService.sendMessage('Обновлено', 'alert-success')
+          //   }
+          // )
         }, (reason) => {
           console.log('Editform dismiss')
           this.messagesService.sendMessage(`Dismissed ${this.getDismissReason(reason)}`, 'alert-warning')

@@ -14,7 +14,7 @@ export class MessagesService {
   sendMessage(message: string, type: string){
     this.subject.next({messageAlert: message, typeAlert: type})
     // this.subject.pipe(debounceTime(2000)).subscribe(() => this.clearMessage())
-    setTimeout(() =>  this.clearMessage() , 2000)
+    // setTimeout(() =>  this.clearMessage() , 2000)
   }
 
   clearMessage(){
