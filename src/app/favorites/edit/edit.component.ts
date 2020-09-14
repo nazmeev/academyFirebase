@@ -12,6 +12,7 @@ import { EditService } from '../../shared/services/edit.service';
 })
 export class EditComponent implements OnInit {
   @Input() item: Favorite | null;
+  @Input() title: Favorite | null;
   formEdit: FormGroup
 
   public formErrors = this.editService.getFormErrors

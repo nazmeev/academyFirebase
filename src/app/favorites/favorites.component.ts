@@ -55,6 +55,7 @@ export class FavoritesComponent implements OnInit {
 
     const modalRef = this.modalService.open(EditComponent)
     modalRef.componentInstance.item = favorite[0]
+    modalRef.componentInstance.title = 'Редактировать'
     modalRef.result.then((result) => {
       if (result === false) this.messagesService.sendMessage('Закрыто', 'alert-warning')
       else {
@@ -73,6 +74,7 @@ export class FavoritesComponent implements OnInit {
   openCreate() {
     const modalRef = this.modalService.open(EditComponent)
     modalRef.componentInstance.item = null
+    modalRef.componentInstance.title = 'Создать'
     modalRef.result.then((result) => {
       if (!result) this.messagesService.sendMessage('Закрыто', 'alert-warning')
 

@@ -6,9 +6,9 @@
       <thead>
         <tr>
           <th scope="col" class="fix-width-150"></th>
-          <th scope="col">Title</th>
-          <th scope="col">Overview</th>
-          <th scope="col" class="fix-width-100"><button class="btn btn-primary w-100" (click)="openCreate()" placement="left" ngbTooltip="Вы можете добавить через меню Список фильмов путем добавления в избранные">Create</button></th>
+          <th scope="col">Название</th>
+          <th scope="col">Описание</th>
+          <th scope="col" class="fix-width-100"><button class="btn btn-primary w-100" (click)="openCreate()" placement="left" ngbTooltip="Вы можете добавить через меню Список фильмов путем добавления в избранные">Создать</button></th>
         </tr>
       </thead>
       <tbody>
@@ -23,8 +23,8 @@
             <p class="card-text limit-height">{{ filmItem.favOverview  | slice:0:400 }}</p>
           </td>
           <td>
-            <button class="btn btn-success mb-2 w-100" (click)="openEdit(filmItem.id)">edit</button>
-            <button class="btn btn-danger w-100" (click)="removeFavorite(filmItem.id)">remove</button>
+            <button class="btn btn-success mb-2 w-100" (click)="openEdit(filmItem.id)">Редактировать</button>
+            <button class="btn btn-danger w-100" (click)="removeFavorite(filmItem.id)">Удалить</button>
           </td>
         </tr>
       </tbody>
@@ -34,7 +34,7 @@
   <ng-template #noFilms>
     <div class="row">
       <div class="col text-center">
-        <h2>No albums found <button class="btn btn-primary w-100" (click)="openCreate()">Create new</button></h2>
+        <h2>Не найдено <button class="btn btn-primary w-100" (click)="openCreate()">Создать запись</button></h2>
       </div>
     </div>
   </ng-template>

@@ -8,8 +8,8 @@
                         #emailFieldControl="ngModel">
                     <ng-container
                         *ngIf="emailFieldControl.invalid && emailFieldControl.dirty && emailFieldControl.touched">
-                        <span class="error-msg" *ngIf="emailFieldControl.errors.required">Field is required</span>
-                        <span class="error-msg" *ngIf="emailFieldControl.errors.email">Error email pattern</span>
+                        <span class="error-msg" *ngIf="emailFieldControl.errors.required">Обязательно для заполнения</span>
+                        <span class="error-msg" *ngIf="emailFieldControl.errors.email">Ошибка формата</span>
                     </ng-container>
                 </div>
                 <div class="form-group">
@@ -20,19 +20,19 @@
                         *ngIf="passwordFieldControl.invalid && passwordFieldControl.dirty && passwordFieldControl.touched">
                         <ng-container
                             *ngIf="(passwordFieldControl.errors.minlength.requiredLength - passwordFieldControl.errors.minlength.actualLength) > 0">
-                            It need
+                            Осталось
                             {{ passwordFieldControl.errors.minlength.requiredLength - passwordFieldControl.errors.minlength.actualLength }}
-                            symbol more
+                            символов
                         </ng-container>
                         <span class="error-msg"
                             *ngIf="passwordFieldControl.errors.minlength || passwordFieldControl.errors.maxlength">
-                            Error: min length - {{ passwordFieldControl.errors.minlength.requiredLength }};
-                            actual length - {{ passwordFieldControl.errors.minlength.actualLength }}</span>
+                            Ошибка: минимальная длина - {{ passwordFieldControl.errors.minlength.requiredLength }};
+                            длина - {{ passwordFieldControl.errors.minlength.actualLength }}</span>
                         <span class="error-msg" *ngIf="passwordFieldControl.errors.required">Field is required</span>
                     </ng-container>
                 </div>
                 <button class="btn btn-success" type="submit"
-                    [disabled]="formDrivenTemplate.form.invalid">Login</button>
+                    [disabled]="formDrivenTemplate.form.invalid">Логин</button>
             </form>
         </div>
     </div>

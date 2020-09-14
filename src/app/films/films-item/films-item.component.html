@@ -9,12 +9,12 @@
       </div>
       <ng-template #favorited>        
         <div class="card-footer bg-transparent border-dark mt-auto p-2">        
-          <button class="btn btn-danger" (click)="removeFavorite(filmItem.favId)">remove favorite</button>
+          <button class="btn btn-danger" (click)="removeFavorite(filmItem.favId)">Удалить из избранного</button>
         </div>  
       </ng-template>
       <ng-template #noFavorited>        
         <div class="card-footer bg-transparent border-dark mt-auto p-2">        
-          <button class="btn btn-success" (click)="addFavorite(filmItem.id)">add to favorite</button>
+          <button class="btn btn-success" (click)="addFavorite(filmItem.id)">Добавить в избранное</button>
         </div>  
       </ng-template>
     </div>
