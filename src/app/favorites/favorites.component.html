@@ -1,52 +1,51 @@
 <div class="container" *ngIf="this.loaded; else containerNoLoaded">
-    <div *ngIf="this.favorites.length; then listFilms else noFilms"></div>
+  <div *ngIf="this.favorites.length; then listFilms else noFilms"></div>
 
+  <table class="table table-hover table-striped">
+    <tr></tr>
+  </table>
+
+  <ng-template #listFilms>
     <table class="table table-hover table-striped">
-        <tr></tr>
+      <thead>
+        <tr>
+          <th scope="col-1"></th>
+          <th scope="col-2">Title</th>
+          <th scope="col-5">Overview</th>
+          <th scope="col-4"><button class="btn btn-primary w-100" (click)="openCreate()">Create</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let filmItem of this.favorites">
+          <td>
+            <img src="{{ imgPath }}{{ filmItem.favImage }}" alt="{{ filmItem.favTitle }}" class="card-img-top">
+          </td>
+          <td>
+            {{ filmItem.favTitle }}
+          </td>
+          <td>
+            <p class="card-text limit-height">{{ filmItem.favOverview  | slice:0:400 }}</p>
+          </td>
+          <td>
+            <button class="btn btn-success mb-2 w-100" (click)="openEdit(filmItem.id)">edit</button>
+            <button class="btn btn-danger w-100" (click)="removeFavorite(filmItem.id)">remove</button>
+          </td>
+        </tr>
+      </tbody>
     </table>
+  </ng-template>
 
-    <ng-template #listFilms>
-        <table class="table table-hover table-striped">
-            <thead>
-                <tr>
-                  <th scope="col-1"></th>
-                  <th scope="col-2">Title</th>
-                  <th scope="col-5">Overview</th>
-                  <th scope="col-4"><button class="btn btn-primary w-100" (click)="openCreate()">Create</button></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let filmItem of this.favorites">
-                    <td>
-                        <img src="{{ imgPath }}{{ filmItem.favImage }}" alt="{{ filmItem.favTitle }}" class="card-img-top">
-                      </td>
-                      <td>
-                        {{ filmItem.favTitle }}
-                      </td>
-                      <td>
-                        <p class="card-text limit-height">{{ filmItem.favOverview  | slice:0:400 }}</p>
-                      </td>
-                      <td>
-                        <!-- <a routerLink="/films/{{ filmItem.filmId }}" routerLinkActive="active">View</a> -->
-                        <button class="btn btn-success mb-2 w-100" (click)="openEdit(filmItem.id)">edit</button>
-                        <button class="btn btn-danger w-100" (click)="removeFavorite(filmItem.id)">remove</button>
-                      </td>
-                </tr>
-            </tbody>
-        </table>
-    </ng-template>
-
-    <ng-template #noFilms>
-        <div class="row">
-            <div class="col text-center">
-            <h2>No albums found <button class="btn btn-primary w-100" (click)="openCreate()">Create new</button></h2>
-            </div>
-        </div>
-    </ng-template>
+  <ng-template #noFilms>
+    <div class="row">
+      <div class="col text-center">
+        <h2>No albums found <button class="btn btn-primary w-100" (click)="openCreate()">Create new</button></h2>
+      </div>
+    </div>
+  </ng-template>
 </div>
 
 <ng-template #containerNoLoaded>
-    <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
 </ng-template>

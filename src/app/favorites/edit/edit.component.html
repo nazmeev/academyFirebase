@@ -1,4 +1,4 @@
-<form [formGroup]="formEdit" novalidate >
+<form [formGroup]="formEdit" novalidate (ngSubmit)="save()">
     <div class="modal-header">
         <h4 class="modal-title">Edit</h4>
         <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="activeModal.close(formEdit)" [disabled]="!formEdit.valid || formEdit.pristine">Submit</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!formEdit.valid || formEdit.pristine">Submit</button>
         <button type="button" class="btn btn-outline-dark" (click)="activeModal.close(false)">Close</button>
     </div>
     <input type="hidden" name="id" formControlName="id">
