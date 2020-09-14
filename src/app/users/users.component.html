@@ -1,0 +1,21 @@
+<ng-container *ngIf="!isAuth">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <app-login></app-login>
+            </div>
+            <div class="col-lg-6">
+                <a class="btn btn-primary" routerLink="/registration" routerLinkActive="active">Регистрация</a>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="isAuth">
+    <div class="jumbotron">
+        <p class="lead">Кабинет пользователя</p>
+        <hr class="my-4">
+        <p>Привет {{ userName }}</p>
+        <a class="btn btn-primary btn-lg" routerLink="/logout" routerLinkActive="active">Выйти</a>
+    </div>
+</ng-container>

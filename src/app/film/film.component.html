@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-4 ">
+        <img src="{{ imgPath }}{{ filmItem.poster_path }}" alt="{{ filmItem.title }}" class="card-img-top">
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-8 ">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ filmItem.title }} <span>({{ filmItem.release_date | date: 'yyyy' }})</span></h5>
+                <p class="card-text limit-height">{{ filmItem.overview}}</p>
+                <div>Vote: {{ filmItem.vote_average }}</div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+  <li class="nav-item"  *ngFor="let link of linksMenu">
+    <a class="nav-link" routerLinkActive="{{link.active}}" routerLink="{{link.path}}">{{link.label}}</a>
+  </li>
+</ul>

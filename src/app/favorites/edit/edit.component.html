@@ -1,0 +1,26 @@
+<form [formGroup]="formEdit" novalidate >
+    <div class="modal-header">
+        <h4 class="modal-title">Edit</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control {{ formErrorsClasses.favTitle }}" name="favTitle" formControlName="favTitle">
+            <div *ngIf="formErrors.favTitle" class="text-danger">{{ formErrors.favTitle }}</div>
+        </div>
+        <div class="form-group">
+            <label>Overview</label>
+            <textarea class="form-control {{ formErrorsClasses.favOverview }}" cols="30" rows="10" name="favOverview"
+                formControlName="favOverview"></textarea>
+                <div *ngIf="formErrors.favOverview" class="text-danger">{{ formErrors.favOverview }}</div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="activeModal.close(formEdit)" [disabled]="!formEdit.valid || formEdit.pristine">Submit</button>
+        <button type="button" class="btn btn-outline-dark" (click)="activeModal.close(false)">Close</button>
+    </div>
+    <input type="hidden" name="id" formControlName="id">
+</form>

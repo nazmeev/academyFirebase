@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-8 col-lg-6 col-xs-offset-2">
+            <form [formGroup]="registrationForm" autocomplete="off" (ngSubmit)="registration()">
+                <div class="form-group">
+                    <label>Login</label>
+                    <input type="text" class="form-control {{ formErrorsClasses.login }}" formControlName="login" disabled="{{ registrationForm.controls['login'].pending }}">
+                    <div *ngIf="formErrors.login" class="text-danger">{{ formErrors.login }}</div>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" class="form-control {{ formErrorsClasses.password }}"
+                        formControlName="password">
+                    <div *ngIf="formErrors.password" class="text-danger">{{ formErrors.password }}</div>
+                </div>
+                <div class="form-group" [ngClass]="formErrorsClasses.email">
+                    <label>Email</label>
+                    <input type="email" class="form-control {{ formErrorsClasses.email }}" formControlName="email">
+                    <div *ngIf="formErrors.email" class="text-danger">{{ formErrors.email }}</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Phones</label>
+                    <div formArrayName="phones">
+                        <div class="phones-row" *ngFor="let control of formPhonesArray.controls; let i = index">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control {{ phoneErrorsClasses[i] }}"
+                                    [placeholder]="'Phone ' + (i + 1)" [formControlName]="i">
+                                <div class="input-group-append">
+                                    <button class="btn btn-danger" type="button"
+                                        (click)="removePhone(i)">Remove</button>
+                                </div>
+                            </div>
+                            <div class="text-danger">{{ phoneErrors[i] }}</div>
+                        </div>
+                    </div>
+                    <div class="text-danger">{{ formErrors.phones }}</div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary" type="button" (click)="addPhone()" [disabled]="addPhoneActive">
+                        Добавить телефон
+                    </button>
+                </div>
+
+                <button class="btn btn-success" type="submit"
+                    [disabled]="registrationForm.invalid || registrationForm.disabled">Registration</button>
+                <button class="btn btn-warning ml-3" type="button" (click)="resetForm()">Reset</button>
+            </form>
+        </div>
+    </div>
+</div>

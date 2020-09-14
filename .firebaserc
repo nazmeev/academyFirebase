@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "films-boo": {
+      "hosting": {
+        "filmsFirebase": [
+          "films-boo"
+        ]
+      }
+    }
+  }
+}

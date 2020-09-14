@@ -1,0 +1,47 @@
+<!-- <div [class]="typeAlert" class="alert" role="alert" *ngIf="messageAlert">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {{ messageAlert }}
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="container">
+    <div class="row">
+        <div class="col-xs-8 col-lg-12 col-xs-offset-2">
+            <form (ngSubmit)="onSubmit(formDrivenTemplate)" #formDrivenTemplate="ngForm" autocomplete="off">
+                <div class="form-group">
+                    <label>Email (admin@admin.adm)</label>
+                    <input type="email" class="form-control" name="email" ngModel required email
+                        #emailFieldControl="ngModel">
+                    <ng-container
+                        *ngIf="emailFieldControl.invalid && emailFieldControl.dirty && emailFieldControl.touched">
+                        <span class="error-msg" *ngIf="emailFieldControl.errors.required">Field is required</span>
+                        <span class="error-msg" *ngIf="emailFieldControl.errors.email">Error email pattern</span>
+                    </ng-container>
+                </div>
+                <div class="form-group">
+                    <label>Пароль (adminA123)</label>
+                    <input type="password" class="form-control" name="password" ngModel required minlength="8"
+                        maxlength="16" #passwordFieldControl="ngModel">
+                    <ng-container
+                        *ngIf="passwordFieldControl.invalid && passwordFieldControl.dirty && passwordFieldControl.touched">
+                        <ng-container
+                            *ngIf="(passwordFieldControl.errors.minlength.requiredLength - passwordFieldControl.errors.minlength.actualLength) > 0">
+                            It need
+                            {{ passwordFieldControl.errors.minlength.requiredLength - passwordFieldControl.errors.minlength.actualLength }}
+                            symbol more
+                        </ng-container>
+                        <span class="error-msg"
+                            *ngIf="passwordFieldControl.errors.minlength || passwordFieldControl.errors.maxlength">
+                            Error: min length - {{ passwordFieldControl.errors.minlength.requiredLength }};
+                            actual length - {{ passwordFieldControl.errors.minlength.actualLength }}</span>
+                        <span class="error-msg" *ngIf="passwordFieldControl.errors.required">Field is required</span>
+                    </ng-container>
+                </div>
+                <button class="btn btn-success" type="submit" [disabled]="formDrivenTemplate.form.invalid">Login</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="card" *ngIf="filmItem.visible !== false">
+    <img src="{{ imgPath }}{{ filmItem.poster_path }}" alt="{{ filmItem.title }}" class="card-img-top">
+    <div class="card-body d-flex flex-column flex-row">
+      <h5 class="card-title">
+          <a routerLink="/films/{{ filmItem.id }}" routerLinkActive="active">{{ filmItem.title }}</a>
+        </h5>
+      <p class="card-text limit-height">{{ filmItem.overview | slice:0:80}}</p>
+      <div class="card-footer bg-transparent border-dark" *ngIf="filmItem.favorited; then favorited else noFavorited">        
+      </div>
+      <ng-template #favorited>        
+        <div class="card-footer bg-transparent border-dark mt-auto p-2">        
+          <button class="btn btn-danger" (click)="removeFavorite(filmItem.favId)">remove favorite</button>
+        </div>  
+      </ng-template>
+      <ng-template #noFavorited>        
+        <div class="card-footer bg-transparent border-dark mt-auto p-2">        
+          <button class="btn btn-success" (click)="addFavorite(filmItem.id)">add to favorite</button>
+        </div>  
+      </ng-template>
+    </div>
+</div>
