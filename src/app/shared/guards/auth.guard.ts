@@ -13,11 +13,9 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
         const isAuth = this.authService.isAuth()
-        console.log('canActivate isAuth', isAuth);
         
         if (!isAuth) {
             const navigationExtras: NavigationExtras = {state: {data: 'Сначала авторизируйтесь или зарегистрируйтесь', type: 'alert-warning'}}
-            console.log('AuthGuard navigationExtras', navigationExtras);
             
             this.router.navigate(['user'], navigationExtras)
             return false

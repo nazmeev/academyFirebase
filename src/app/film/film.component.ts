@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Film } from '../shared/interfaces/film.interface';
 import { FilmsService } from '../shared/services/films.service';
 
@@ -8,28 +8,20 @@ import { FilmsService } from '../shared/services/films.service';
   templateUrl: './film.component.html',
   styleUrls: ['./film.component.css']
 })
-export class FilmComponent implements OnInit{
+
+export class FilmComponent{
   public filmId: number
   public filmItem: Film
   public imgPath = this.filmsService.bigBackPath
 
   constructor(
-    private activateRouter: ActivatedRoute,
     private route: ActivatedRoute,
-    private filmsService: FilmsService,
+    private filmsService: FilmsService
   ){
     this.route.params.subscribe(params => {
       this.filmId = params.filmId
       this.getFilm(this.filmId)
     })
-  }
-  ngOnInit(){
-    // this.activateRouter.paramMap.subscribe((params: Params) => {
-    //   const id = +params.get('id')
-    //   this.filmsService.loadFilm(id).subscribe(
-    //     (result: any) => this.filmItem = result
-    //   )
-    // })
   }
 
   getFilm(filmId){

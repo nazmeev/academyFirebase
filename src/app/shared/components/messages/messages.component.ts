@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MessagesService } from '../../services/messages.service';
 
@@ -7,7 +7,7 @@ import { MessagesService } from '../../services/messages.service';
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css']
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent {
   public messageAlert: string = ''
   public typeAlert: string = ''
   public message = {}
@@ -15,15 +15,10 @@ export class MessagesComponent implements OnInit {
   subscription: Subscription
 
   constructor(public messagesService: MessagesService) {
-    this.subscription = this.messagesService.getMessage().subscribe(message => {
-      // console.log('subscription', message);
-      
+    this.subscription = this.messagesService.getMessage().subscribe(message => {      
       this.messageAlert = message.messageAlert
       this.typeAlert = message.typeAlert
     })
-  }
-
-  ngOnInit(): void {
   }
 
 }

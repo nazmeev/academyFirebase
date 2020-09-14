@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.css']
 })
-export class NotFoundComponent implements OnInit {
+export class NotFoundComponent {
 
   public statusCode: number = 404;
   public statusText: string = 'This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.';
@@ -14,8 +14,6 @@ export class NotFoundComponent implements OnInit {
   constructor(private route: ActivatedRoute) {
     this.getParams();
   }
-
-  ngOnInit(): void {}
 
   getParams(){
     this.route.params.subscribe(params => {

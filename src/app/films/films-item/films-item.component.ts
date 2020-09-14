@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-films-item',
   templateUrl: './films-item.component.html',
   styleUrls: ['./films-item.component.css']
 })
-export class FilmsItemComponent implements OnInit {
+export class FilmsItemComponent {
 
   @Input() filmItem: any;  
   @Input() imgPath: string;
@@ -14,14 +14,10 @@ export class FilmsItemComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {}
-
   addFavorite(id: number) {
-    console.log('addFavoriteItems')
     this.favorited.emit(id);
   }
   removeFavorite(id: number) {
-    console.log('FilmsItemComponent removeFavoriteItems')
     this.unfavorited.emit(id);
   }
 }

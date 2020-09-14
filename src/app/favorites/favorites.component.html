@@ -1,24 +1,20 @@
 <div class="container" *ngIf="this.loaded; else containerNoLoaded">
   <div *ngIf="this.favorites.length; then listFilms else noFilms"></div>
 
-  <table class="table table-hover table-striped">
-    <tr></tr>
-  </table>
-
   <ng-template #listFilms>
     <table class="table table-hover table-striped">
       <thead>
         <tr>
-          <th scope="col-1"></th>
-          <th scope="col-2">Title</th>
-          <th scope="col-5">Overview</th>
-          <th scope="col-4"><button class="btn btn-primary w-100" (click)="openCreate()">Create</button></th>
+          <th scope="col" class="fix-width-150"></th>
+          <th scope="col">Title</th>
+          <th scope="col">Overview</th>
+          <th scope="col" class="fix-width-100"><button class="btn btn-primary w-100" (click)="openCreate()" placement="left" ngbTooltip="Вы можете добавить через меню Список фильмов путем добавления в избранные">Create</button></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let filmItem of this.favorites">
           <td>
-            <img src="{{ imgPath }}{{ filmItem.favImage }}" alt="{{ filmItem.favTitle }}" class="card-img-top">
+            <img src="{{ imgPath }}{{ filmItem.favImage }}" alt="{{ filmItem.favTitle }}" class="w-100">
           </td>
           <td>
             {{ filmItem.favTitle }}

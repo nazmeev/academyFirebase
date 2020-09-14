@@ -10,8 +10,6 @@ import { MessagesService } from '../shared/services/messages.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  // public messageAlert: string = ''
-  // public typeAlert: string = ''
   public isAuth: boolean
   public userName: string = ''
 
@@ -23,15 +21,8 @@ export class UsersComponent implements OnInit {
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation.extras.state as { data: string, type: string }
-    console.log('state', state);
-    
-    // if (state.data) {
-      this.messagesService.sendMessage(state.data, state.type)
-      console.log('state', state);
 
-      // this.messageAlert = state.data
-      // this.typeAlert = state.type
-    // }
+    this.messagesService.sendMessage(state.data, state.type)
   }
 
   ngOnInit(): void {
@@ -41,5 +32,5 @@ export class UsersComponent implements OnInit {
       this.cloudService.getDataById(token, 'users').subscribe(resp => this.userName = resp['login'])
     }
   }
-    
+
 }

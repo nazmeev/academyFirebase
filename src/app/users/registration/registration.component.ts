@@ -1,17 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators, NgForm, FormBuilder, ValidationErrors, FormArray } from "@angular/forms";
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from "@angular/forms";
 import { RegistrationService } from '../../shared/services/registration.service';
 import { ComponentCanDeactivate } from '../../shared/interfaces/candeactivate.interface';
 import { Observable, Subscription } from 'rxjs';
-// import { AuthService } from '../../shared/services/auth.service';
-import { Router, ActivatedRoute, Params, NavigationExtras } from '@angular/router';
-// import { MessagesService } from '../../shared/services/messages.service';
+import { Router, NavigationExtras } from '@angular/router';
 import { checkLogin } from '../../shared/validators/checklogin.validator';
-// import { UserService } from '../../shared/services/user.service';
 import { CloudService } from '../../shared/services/cloud.service';
-// import { User } from '../../shared/interfaces/user.interface';
-// import { map } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-registration',
@@ -31,15 +25,10 @@ export class RegistrationComponent implements OnInit, ComponentCanDeactivate, On
   constructor(
     private fb: FormBuilder,
     private registrationService: RegistrationService,
-    // private authService: AuthService,
-    // private userService: UserService,
     private router: Router,
     private cloudService: CloudService
-    // private msgService: MessagesService
-    // private route: ActivatedRoute
-  ) { 
+  ) {
     this.registrationService.checkLogin$.subscribe(data => {
-      console.log('next = ', data)    
       this.onValueChange()
     })
   }
@@ -53,9 +42,6 @@ export class RegistrationComponent implements OnInit, ComponentCanDeactivate, On
   ngOnInit(): void {
     this.buildFormRegistration()
     // debugger;
-    // this.userService.getUserField().subscribe(data => {
-    //   console.log(data)
-    // });
   }
   canDeactivate(): boolean | Observable<boolean> {
     return (!this.saved) ? confirm("Вы хотите покинуть страницу?") : true
@@ -75,10 +61,8 @@ export class RegistrationComponent implements OnInit, ComponentCanDeactivate, On
             Validators.maxLength(this.registrationService.loginMaxlength),
           ],
           asyncValidators: [checkLogin.bind(this.registrationService)],
-          // updateOn: 'blur'
         }
-      ]
-      ,
+      ],
       email: ['', [
         Validators.required,
         Validators.email
@@ -99,7 +83,6 @@ export class RegistrationComponent implements OnInit, ComponentCanDeactivate, On
   }
 
   onValueChange() {
-    console.log('onValueChange', this.registrationForm)
     if (!this.registrationForm) return false
     for (let item in this.formErrors) {
 
@@ -111,18 +94,15 @@ export class RegistrationComponent implements OnInit, ComponentCanDeactivate, On
       switch (item) {
         case 'phones':
           this.setValidationPhoneInfo(messages)
-          break;
-
+          break
         default:
           this.setValidationFormInfo(messages, control, item)
-          console.log('stop')
-          break;
+          break
       }
     }
   }
 
   setValidationFormInfo(messages, control, item) {
-    console.log(control)
     if (control && control.dirty && control.touched && control.invalid) {
       for (let key in control.errors) {
         this.formErrors[item] += `${messages[key]}\n\r`
@@ -139,6 +119,7 @@ export class RegistrationComponent implements OnInit, ComponentCanDeactivate, On
       }
     }
   }
+
   setValidationPhoneInfo(messages) {
     this.formPhonesArray.controls.map((phoneRow, i) => {
       this.phoneErrors[i] = ''
@@ -161,7 +142,6 @@ export class RegistrationComponent implements OnInit, ComponentCanDeactivate, On
   }
 
   addPhone() {
-    let index = this.formPhonesArray.length
     if (this.formPhonesArray.length < this.maxLengthArray) {
       this.formPhonesArray.push(new FormControl(null, [
         Validators.required,
@@ -188,20 +168,18 @@ export class RegistrationComponent implements OnInit, ComponentCanDeactivate, On
   }
 
   registration() {
-    // this.registrationForm.disable()
     let user = this.registrationService.prepareUserToSave(this.registrationForm.value)
-    
+
     this.cloudService.createData(user, 'users').then(
       resp => {
-        console.log('RegistrationComponent registration resp', resp)
         this.saved = true
         this.registrationForm.reset()
-        this.cloudService.updateData(resp.id, resp, 'users') // узнать как получать ид документа
+        this.cloudService.updateData(resp.id, resp, 'users')
         const navigationExtras: NavigationExtras = { state: { data: 'Успешная регистрация', type: 'alert-success' } }
         this.router.navigate(['user'], navigationExtras)
       },
       error => {
-        console.log("Rejected: " + error)
+        console.warn("Rejected: " + error)
       }
     )
   }

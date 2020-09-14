@@ -1,12 +1,3 @@
-<!-- <div [class]="typeAlert" class="alert" role="alert" *ngIf="messageAlert">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                {{ messageAlert }}
-            </div>
-        </div>
-    </div>
-</div> -->
 <div class="container">
     <div class="row">
         <div class="col-xs-8 col-lg-12 col-xs-offset-2">
@@ -40,7 +31,8 @@
                         <span class="error-msg" *ngIf="passwordFieldControl.errors.required">Field is required</span>
                     </ng-container>
                 </div>
-                <button class="btn btn-success" type="submit" [disabled]="formDrivenTemplate.form.invalid">Login</button>
+                <button class="btn btn-success" type="submit"
+                    [disabled]="formDrivenTemplate.form.invalid">Login</button>
             </form>
         </div>
     </div>

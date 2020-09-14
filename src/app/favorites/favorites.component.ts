@@ -25,12 +25,10 @@ export class FavoritesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('favoriteService');
     (this.favorites.length) ? this.loaded = true : this.getFavorites()
   }
 
   getFavorites() {
-    console.log('return load data')
     this.cloudService.getAllData('favorites').subscribe(
       (filmList: Favorite[]) => {
         this.favorites = filmList
@@ -43,79 +41,64 @@ export class FavoritesComponent implements OnInit {
     if (confirm('Вы уверены?'))
       this.favoriteService.deleteData(id, 'favorites').then(
         resp => {
-          console.log('FilmsComponent removeFavorite resp', resp)
           this.favorites = this.favoriteService.removeFavoriteById(resp, this.favorites)
           this.messagesService.sendMessage('Удалено', 'alert-success')
-          // this.favorites = this.favoriteService.getFavorites()
-          console.log(this.favorites);
-          
         },
         error => {
-          console.log("FilmsComponent addFavorite err: " + error)
+          console.warn("FilmsComponent addFavorite err: " + error)
         }
       )
   }
 
   openEdit(itemId: string) {
-    console.log('openEdit', itemId);
+    let favorite = this.favoriteService.getFavoriteById(itemId, this.favorites)
 
-    this.cloudService.getDataById(itemId, 'favorites').subscribe(
-      item => {
-        const modalRef = this.modalService.open(EditComponent)
-        modalRef.componentInstance.item = item
-        modalRef.result.then((result) => {
-          // debugger;
-          console.log('openEdit result', result);
-          modalRef.close(true);
-          (result)? this.messagesService.sendMessage('Обновлено', 'alert-success'): this.messagesService.sendMessage('Закрыто', 'alert-warning')
-          // this.cloudService.updateData(result.value.id, result.value, 'favorites').then(
-          //   res => {
-          //     this.messagesService.sendMessage('Обновлено', 'alert-success')
-          //   }
-          // )
-        }, (reason) => {
-          console.log('Editform dismiss')
-          this.messagesService.sendMessage(`Dismissed ${this.getDismissReason(reason)}`, 'alert-warning')
-        }).catch((error) => {
-          console.log('Editform catch');
-          this.getDismissReason(error)
-        })
-      })
+    const modalRef = this.modalService.open(EditComponent)
+    modalRef.componentInstance.item = favorite[0]
+    modalRef.result.then((result) => {
+      if (result === false) this.messagesService.sendMessage('Закрыто', 'alert-warning')
+      else {
+        this.cloudService.updateData(result.value.id, result.value, 'favorites').then(
+          res => {
+            this.messagesService.sendMessage('Обновлено', 'alert-success')
+          }
+        )
+      }
+    }, (reason) => {
+      this.messagesService.sendMessage(`Dismissed ${this.getDismissReason(reason)}`, 'alert-warning')
+    }).catch((error) => {
+      this.getDismissReason(error)
+    })
   }
   openCreate() {
     const modalRef = this.modalService.open(EditComponent)
     modalRef.componentInstance.item = null
     modalRef.result.then((result) => {
-      console.log('openCreate result', result)
       if (!result) this.messagesService.sendMessage('Закрыто', 'alert-warning')
 
-      console.log('Editform result create')
       this.cloudService.createData(result.value, 'favorites').then(
         resp => {
-          console.log('Editform createData', resp)
-          this.cloudService.updateData(resp.id, resp, 'favorites') // узнать как получать ид документа
+          this.cloudService.updateData(resp.id, resp, 'favorites')
           this.messagesService.sendMessage('Создан новый елемент', 'alert-success')
         },
         error => {
-          console.log("Rejected: " + error)
+          console.warn("Rejected: " + error)
         }
       )
     }, (reason) => {
-      console.log('Editform dismiss')
       this.messagesService.sendMessage(`Dismissed ${this.getDismissReason(reason)}`, 'alert-warning')
     }).catch((error) => {
-      console.log('Editform catch');
       this.getDismissReason(error)
     })
   }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
+      return 'by pressing ESC'
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
+      return 'by clicking on a backdrop'
     } else {
-      return `with: ${reason}`;
+      return `with: ${reason}`
     }
   }
 

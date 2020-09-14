@@ -13,11 +13,9 @@ export class GuestGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
         const isAuth = this.authService.isAuth()
-        console.log('GuestGuard canActivate isAuth', isAuth);
         
         if (isAuth) {
             const navigationExtras: NavigationExtras = {state: {data: 'Уже авторизированы', type: 'alert-warning'}}
-            console.log('GuestGuard navigationExtras', navigationExtras);
             this.router.navigate(['user'], navigationExtras)
             return false
         } else {

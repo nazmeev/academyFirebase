@@ -24,16 +24,14 @@ export class ApiinterceptorService implements HttpInterceptor{
     return next.handle(request).pipe(
       tap(
         event => {
-          if (event instanceof HttpResponse) console.log('Server response')
-          console.log('HttpResponse', event)
+          if (event instanceof HttpResponse) console.warn('HttpResponse', event)
         },
         err => {
           if (err instanceof HttpErrorResponse) {
-            console.log('err.status', err.status)
             if (err.status == 401) this.router.navigate(['/error', { statusCode: err.status, statusText: err.statusText }], {skipLocationChange: true})
           }
         }
-      ), finalize(() => console.log("Finish"))
+      ), finalize(() => console.warn("Finish"))
     )
   }
 }

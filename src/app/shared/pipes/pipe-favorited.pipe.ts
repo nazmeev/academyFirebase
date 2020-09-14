@@ -7,7 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PipeFavoritedPipe implements PipeTransform {
 
   transform(array: any, favorited: any): any {
-    console.log('PipeFavoritedPipe', favorited)
     array.map(item => {
       let favorite = favorited.filter(fav => fav.filmId == item.id)
       if(favorite.length){
