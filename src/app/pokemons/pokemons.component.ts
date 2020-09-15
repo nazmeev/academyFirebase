@@ -10,32 +10,35 @@ import { ModalPokemonEditComponent } from './modal-pokemon-edit/modal-pokemon-ed
   templateUrl: './pokemons.component.html',
   styleUrls: ['./pokemons.component.css']
 })
-export class PokemonsComponent{
+export class PokemonsComponent {
   public pokemons: PokemonInfo[] = []
-  
+
   constructor(
     private modalService: NgbModal,
     private messagesService: MessagesService
-    ) { }
+  ) { }
 
-  removePokemon(id){
-    if (confirm('Вы уверены?')){
+  removePokemon(id) {
+    if (confirm('Вы уверены?')) {
       this.pokemons = this.pokemons.filter(item => item.id != id)
       this.messagesService.sendMessage('Удалено', 'alert-success')
     }
   }
-  openEditPokemon(id){
+  openEditPokemon(id) {
     let poky = this.getPokemon(id)
     const modalRef = this.modalService.open(ModalPokemonEditComponent)
-    
+
     modalRef.componentInstance.pokemonInfo = poky[0]
     modalRef.componentInstance.title = 'Редактировать'
     modalRef.result.then((result) => {
-      this.pokemons.map(item => {
-        console.log(result);
-        
-        if(result.id == item.id) item = result})
-      this.messagesService.sendMessage('Обновлено', 'alert-success')
+      if (result === false) {
+        this.messagesService.sendMessage('Закрыто', 'alert-warning')
+      } else {
+        this.pokemons.map(item => {
+          if (result.id == item.id) item = result
+        })
+        this.messagesService.sendMessage('Обновлено', 'alert-success')
+      }
     }, (reason) => {
       this.messagesService.sendMessage(`Dismissed ${this.getDismissReason(reason)}`, 'alert-warning')
     }).catch((error) => {
@@ -48,8 +51,12 @@ export class PokemonsComponent{
     modalRef.componentInstance.item = null
     modalRef.componentInstance.title = 'Создать'
     modalRef.result.then((result) => {
-      this.pokemons.push(result)
-      this.messagesService.sendMessage('Добавлено', 'alert-success')
+      if (result === false) {
+        this.messagesService.sendMessage('Закрыто', 'alert-warning')
+      } else {
+        this.pokemons.push(result)
+        this.messagesService.sendMessage('Добавлено', 'alert-success')
+      }
     }, (reason) => {
       this.messagesService.sendMessage(`Dismissed ${this.getDismissReason(reason)}`, 'alert-warning')
     }).catch((error) => {
@@ -57,7 +64,7 @@ export class PokemonsComponent{
     })
   }
 
-  getPokemon(id){
+  getPokemon(id) {
     return this.pokemons.filter(pokemon => pokemon.id == id)
   }
 
