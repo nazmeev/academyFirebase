@@ -10,8 +10,11 @@
               <th scope="col">Название</th>
               <th scope="col">Вес</th>
               <th scope="col">Рост</th>
+              <th scope="col">Изображение</th>
+              <th scope="col">Мнение</th>
               <th scope="col" class="fix-width-100"><button class="btn btn-primary w-100"
-                  (click)="openCreatePokemon()">Новый</button></th>
+                  (click)="openCreatePokemon()">Новый</button>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -26,6 +29,14 @@
                 {{ pokemon.weight }}
               </td>
               <td>
+                <img src="{{ pokemon.sprites.back_default }}" alt="{{ pokemon.name }}">
+                <img src="{{ pokemon.sprites.front_default }}" alt="{{ pokemon.name }}">
+              </td>
+              <td>
+                {{ pokemon.opinion }}
+              </td>
+              <td>
+                <button class="btn btn-primary w-100 mb-2" (click)="openEditPokemon(pokemon.id)">Изменить</button>
                 <button class="btn btn-danger w-100" (click)="removePokemon(pokemon.id)">Удалить</button>
               </td>
             </tr>

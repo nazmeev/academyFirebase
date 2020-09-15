@@ -7,13 +7,6 @@
     </div>
     <div class="modal-body">
         <div class="form-group">
-            <label>Выбор</label>
-            <select class="form-control" (change)="onChangePokemon($event.target.value)">
-                <option value="">Выбор</option>
-                <option *ngFor="let pokemon of pokemonsList" value="{{ pokemon.url }}">{{pokemon.name}}</option>
-            </select>
-        </div>
-        <div class="form-group">
             <label>Название</label>
             {{ pokemonInfo.name }}
         </div>
@@ -31,7 +24,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" [disabled]="!canSave">Сохранить</button>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
         <button type="button" class="btn btn-outline-dark" (click)="activeModal.close(false)">Отмена</button>
     </div>
 </form>

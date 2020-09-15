@@ -13,6 +13,7 @@ export class ModalPokemonComponent implements OnInit {
   public canSave: boolean = false
   public pokemonsList: PokemonRequest[] = []
   public title: string
+  public opinion: string
   public pokemonInfo: PokemonInfo = this.pokemonsService.implementEmptyPokemonInfo()
 
   constructor(
@@ -44,6 +45,7 @@ export class ModalPokemonComponent implements OnInit {
   }
 
   savePokemon() {
+    this.pokemonInfo.opinion = this.opinion
     this.activeModal.close(this.pokemonInfo)
   }
 

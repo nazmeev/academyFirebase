@@ -64,7 +64,8 @@ export class PokemonsService {
       sprites: {},
       stats: [],
       types: [],
-      weight: 0
+      weight: 0,
+      opinion: ''
     }
   }
 

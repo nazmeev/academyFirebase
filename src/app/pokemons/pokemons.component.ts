@@ -3,6 +3,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PokemonInfo } from '../shared/interfaces/pokemonInfo.interface';
 import { MessagesService } from '../shared/services/messages.service';
 import { ModalPokemonComponent } from './modal-pokemon/modal-pokemon.component';
+import { ModalPokemonEditComponent } from './modal-pokemon-edit/modal-pokemon-edit.component';
 
 @Component({
   selector: 'app-pokemons',
@@ -18,8 +19,28 @@ export class PokemonsComponent{
     ) { }
 
   removePokemon(id){
-    this.pokemons = this.pokemons.filter(item => item.id != id)
-    this.messagesService.sendMessage('Удалено', 'alert-success')
+    if (confirm('Вы уверены?')){
+      this.pokemons = this.pokemons.filter(item => item.id != id)
+      this.messagesService.sendMessage('Удалено', 'alert-success')
+    }
+  }
+  openEditPokemon(id){
+    let poky = this.getPokemon(id)
+    const modalRef = this.modalService.open(ModalPokemonEditComponent)
+    
+    modalRef.componentInstance.pokemonInfo = poky[0]
+    modalRef.componentInstance.title = 'Редактировать'
+    modalRef.result.then((result) => {
+      this.pokemons.map(item => {
+        console.log(result);
+        
+        if(result.id == item.id) item = result})
+      this.messagesService.sendMessage('Обновлено', 'alert-success')
+    }, (reason) => {
+      this.messagesService.sendMessage(`Dismissed ${this.getDismissReason(reason)}`, 'alert-warning')
+    }).catch((error) => {
+      this.messagesService.sendMessage(`Error: ${error}`, 'alert-danger')
+    })
   }
 
   openCreatePokemon() {
@@ -34,6 +55,10 @@ export class PokemonsComponent{
     }).catch((error) => {
       this.messagesService.sendMessage(`Error: ${error}`, 'alert-danger')
     })
+  }
+
+  getPokemon(id){
+    return this.pokemons.filter(pokemon => pokemon.id == id)
   }
 
   private getDismissReason(reason: any): string {

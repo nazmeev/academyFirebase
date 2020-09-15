@@ -28,6 +28,7 @@ import { MessagesComponent } from './shared/components/messages/messages.compone
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PokemonsComponent } from './pokemons/pokemons.component';
 import { ModalPokemonComponent } from './pokemons/modal-pokemon/modal-pokemon.component';
+import { ModalPokemonEditComponent } from './pokemons/modal-pokemon-edit/modal-pokemon-edit.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ModalPokemonComponent } from './pokemons/modal-pokemon/modal-pokemon.co
     MessagesComponent,
     PokemonsComponent,
     ModalPokemonComponent,
+    ModalPokemonEditComponent,
   ],
   imports: [
     BrowserModule,

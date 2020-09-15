@@ -15,5 +15,6 @@ export interface PokemonInfo {
     sprites: {},
     stats: [],
     types: [],
-    weight: number
+    weight: number,
+    opinion?: string
 }
