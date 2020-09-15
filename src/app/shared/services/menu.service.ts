@@ -7,6 +7,7 @@ import { Menu } from '../interfaces/menu.interface';
 export class MenuService {
 
   linksMenu: Menu[] = [
+    { path: '/pokemons', label: 'Pokemons', active: 'active', icon: 'list_alt'},
     { path: '/films', label: 'Все фильмы', active: 'active', icon: 'list_alt'},
     { path: '/albums', label: 'Избранные фильмы', active: 'active', icon: 'list_alt'},
     { path: '/login', label: 'Войти', active: 'active', icon: 'list_alt'},

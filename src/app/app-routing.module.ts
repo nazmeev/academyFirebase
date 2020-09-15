@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FilmsComponent } from './films/films.component';
+import { PokemonsComponent } from './pokemons/pokemons.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { FilmComponent } from './film/film.component';
 import { FavoritesComponent } from './favorites/favorites.component';
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
     redirectTo: '/albums',
     pathMatch: 'full'
   },
+  {path: 'pokemons', component: PokemonsComponent, canActivate: [AuthGuard]},
   {path: 'films', component: FilmsComponent, canActivate: [AuthGuard]},
   {path: 'films/:filmId', component: FilmComponent, canActivate: [AuthGuard]},
   {path: 'albums', component: FavoritesComponent, canActivate: [AuthGuard]},

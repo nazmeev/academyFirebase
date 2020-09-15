@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div *ngIf="this.pokemons.length; then listPokemons else noPokemons"></div>
+
+      <ng-template #listPokemons>
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Название</th>
+              <th scope="col">Вес</th>
+              <th scope="col">Рост</th>
+              <th scope="col" class="fix-width-100"><button class="btn btn-primary w-100"
+                  (click)="openCreatePokemon()">Новый</button></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pokemon of pokemons">
+              <td>
+                {{ pokemon.name }}
+              </td>
+              <td>
+                {{ pokemon.height }}
+              </td>
+              <td>
+                {{ pokemon.weight }}
+              </td>
+              <td>
+                <button class="btn btn-danger w-100" (click)="removePokemon(pokemon.id)">Удалить</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+
+      <ng-template #noPokemons>
+        <div class="row">
+          <div class="col text-center">
+            <h2>Не найдено <button class="btn btn-primary w-100" (click)="openCreatePokemon()">Создать</button></h2>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

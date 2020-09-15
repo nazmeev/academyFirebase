@@ -26,6 +26,8 @@ import { AngularFireModule } from "@angular/fire";
 import { EditComponent } from './favorites/edit/edit.component';
 import { MessagesComponent } from './shared/components/messages/messages.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PokemonsComponent } from './pokemons/pokemons.component';
+import { ModalPokemonComponent } from './pokemons/modal-pokemon/modal-pokemon.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LogoutComponent,
     EditComponent,
     MessagesComponent,
+    PokemonsComponent,
+    ModalPokemonComponent,
   ],
   imports: [
     BrowserModule,
